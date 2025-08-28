@@ -4,7 +4,7 @@ from langchain.schema import StrOutputParser
 from langchain.schema.runnable import Runnable
 from langchain.schema.runnable.config import RunnableConfig
 from typing import cast
-
+import os
 import chainlit as cl
 
 @cl.on_chat_start
@@ -22,10 +22,9 @@ async def on_chat_start():
     runnable = prompt | model | StrOutputParser()
     cl.user_session.set("runnable", runnable)
 
-
 @cl.on_message
 async def on_message(message: cl.Message):
-    runnable = cast(Runnable, cl.user_session.get("runnable"))  # type: Runnable
+    runnable = cast(Runnable, cl.user_session.get("runnable"))
 
     msg = cl.Message(content="")
 
@@ -37,20 +36,18 @@ async def on_message(message: cl.Message):
 
     await msg.send()
 
+# For Vercel deployment - expose the ASGI app
+from chainlit.server import app
 
-#in cmd cursor, .venv\Scripts\activate.bat
+# This is what Vercel will use
+def handler(request):
+    return app(request)
 
-#.venv\Scripts\chainlit run step1_langchain.py --port 8003
-
-
-
-# Your existing Chainlit code with @cl.on_message decorators...
-
-# Add this at the very end:
+# For local development
 if __name__ == "__main__":
-    import chainlit as cl
-    cl.run()
+    cl.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
 
+    
 """
 #sol1
 

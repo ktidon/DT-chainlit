@@ -47,25 +47,3 @@ def handler(request):
 if __name__ == "__main__":
     cl.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
 
-    
-"""
-#sol1
-
-# Activate the virtual environment
-.venv\Scripts\activate
-
-# Then run chainlit normally
-chainlit run step1_langchain.py --port 8001
-
-
-#sol2
-# Use the full Windows path to chainlit
-.venv\Scripts\chainlit run step1_langchain.py --port 8001
-
-
-sol3
-# Run chainlit as a Python module
-.venv\Scripts\python -m chainlit run step1_langchain.py --port 8001
-
-
-"""

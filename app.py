@@ -43,6 +43,14 @@ async def on_message(message: cl.Message):
 #.venv\Scripts\chainlit run step1_langchain.py --port 8003
 
 
+
+# Your existing Chainlit code with @cl.on_message decorators...
+
+# Add this at the very end:
+if __name__ == "__main__":
+    import chainlit as cl
+    cl.run()
+
 """
 #sol1
 
